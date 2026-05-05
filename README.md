@@ -14,11 +14,30 @@
 - Randomised search radius encircling the treaure location (center offset from treasure)
 - Functional treasure proximity bar indicating users real distance from the treasures on map coordinates
 
-### Missing / Forgotten Features
+---
 
-- user profile doesnt display treasure created or found because:
-    - No detection for treasure found
-    - No link between user and treasure to track created treasure
-- Real account security and passwords not implemented
-- No treasure or user deletion or editing
-- No avatar / profile picture change feature
+### TODO
+
+[ ] link between user and treasure to track created treasure
+
+treasure:
+[ ] Individual Treasures can be updated/deleted/filtered
+[ ] Update treasure
+[ ] delete treasure all
+[ ] delete treasure by id
+[ ] find treasure "created by userID"
+
+user:
+[ ] update user
+[ ] delete user
+[ ] avatar / profile picture
+
+logic:
+[ ] detection for treasure found
+[ ] smooth gps positioning
+[ ] Real accounts
+
+UI:
+[ ] Splash Screen
+[ ] user profile card
+[ ] treasure info card
