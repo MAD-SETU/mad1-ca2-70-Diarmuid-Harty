@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TreasureMap</string>
+
+    <string name="hint_enterUsername">Enter Username</string>
+    <string name="hint_enterTreasureName">Treasure Name</string>
+    <string name="hint_enterTreasureDescription">Treasure Description</string>
+
+    <string name="button_addUser">Create account</string>
+    <string name="button_login">Log in</string>
+    <string name="button_addTreasure">Create Treasure</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="add_treasure">Add Treasure</string>
+    <string name="profile">Profile View</string>
+    <string name="togglemenu">Toggle Menu</string>
+</resources>
