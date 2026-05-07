@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -59,6 +61,13 @@ dependencies {
 
     // persistence
     implementation("com.google.code.gson:gson:2.10.1")
+
+    // persistence/firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.12.0"))
+    implementation("com.google.firebase:firebase-database") // realtimeDB
+    implementation("com.google.firebase:firebase-auth") // userAuth
+    implementation("com.google.firebase:firebase-analytics")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

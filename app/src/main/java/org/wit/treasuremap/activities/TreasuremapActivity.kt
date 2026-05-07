@@ -94,6 +94,7 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
                 locationHelper.getUserLocation { coords ->
                     val treasure = TreasureModel(
                         treasureName = name,
+                        creatorId = app.currentUser?.id ?: "", // elvis operator used as currentUser is nullable
                         description = treasureDescriptionField.text.toString(),
                         lat = coords.latitude,
                         lng = coords.longitude
