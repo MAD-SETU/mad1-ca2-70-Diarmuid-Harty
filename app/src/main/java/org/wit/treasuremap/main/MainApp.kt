@@ -2,13 +2,9 @@ package org.wit.treasuremap.main
 
 import android.app.Application
 import org.wit.treasuremap.models.TreasureModel
-import org.wit.treasuremap.models.persistence.UserJSONStore
 import timber .log.Timber
 import timber .log.Timber.i
-import org.wit.treasuremap.models.UserModel
-import org.wit.treasuremap.models.persistence.TreasureJSONStore
 import org.wit.treasuremap.models.persistence.TreasureStore
-import org.wit.treasuremap.models.persistence.UserStore
 
 // todo:
 class MainApp: Application() {

@@ -7,7 +7,6 @@ import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber.i
 import org.wit.treasuremap.main.MainApp
 import org.wit.treasuremap.databinding.ActivityLoginBinding
-import org.wit.treasuremap.models.UserModel
 import org.wit.treasuremap.util.getUser
 import org.wit.treasuremap.util.hideKeyboard
 import org.wit.treasuremap.util.showSnackbar

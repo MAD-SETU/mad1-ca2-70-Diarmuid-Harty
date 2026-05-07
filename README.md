@@ -18,8 +18,6 @@
 
 ### TODO
 
-[ ] link between user and treasure to track created treasure
-
 treasure:
 - [ ] Individual Treasures can be updated/deleted/filtered
 - [ ] Update treasure

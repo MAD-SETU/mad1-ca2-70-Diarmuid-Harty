@@ -9,7 +9,6 @@ import com.google.android.material.snackbar.Snackbar
 import org.wit.treasuremap.R
 import org.wit.treasuremap.databinding.ActivityTreasuremapBinding
 import org.wit.treasuremap.databinding.UserProfileCardBinding
-import org.wit.treasuremap.models.UserModel
 
 // USER INTERFACE HELPERS
 // almost entirely AI generated code below, particularly after refactoring
