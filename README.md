@@ -21,24 +21,24 @@
 [ ] link between user and treasure to track created treasure
 
 treasure:
-[ ] Individual Treasures can be updated/deleted/filtered
-[ ] Update treasure
-[ ] delete treasure all
-[ ] delete treasure by id
-[x] link treasure and user
-[ ] find treasure "created by userID"
+- [ ] Individual Treasures can be updated/deleted/filtered
+- [ ] Update treasure
+- [ ] delete treasure all
+- [ ] delete treasure by id
+- [x] link treasure and user
+- [ ] find treasure "created by userID"
 
 user:
-[ ] update user
-[ ] delete user
-[ ] avatar / profile picture
+- [ ] update user
+- [ ] delete user
+- [ ] avatar / profile picture
 
 logic:
-[ ] detection for treasure found
-[ ] smooth gps positioning
-[ ] Real accounts
+- [ ] detection for treasure found
+- [ ] smooth gps positioning
+- [ ] Real accounts
 
 UI:
-[ ] Splash Screen
-[ ] user profile card
-[ ] treasure info card
+- [ ] Splash Screen
+- [ ] user profile card
+- [ ] treasure info card
