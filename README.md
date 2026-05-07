@@ -27,7 +27,6 @@ treasure:
 - [ ] find treasure "created by userID"
 
 user:
-- [ ] update user
 - [ ] delete user
 - [ ] avatar / profile picture
 
