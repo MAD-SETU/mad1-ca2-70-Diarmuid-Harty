@@ -7,31 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:403301118849:android:0917735063e31867556e80",
-        "android_client_info": {
-          "package_name": "org.wit.TreasureHunt"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCbwU2J_67MK1Y9H5PhTaJukhK0gaJx1Uo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:403301118849:android:5476219e6f9cb24c556e80",
         "android_client_info": {
           "package_name": "org.wit.treasuremap"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "403301118849-en4jgru4k0nacv0j8cp3t6rnogto0hiu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wit.treasuremap",
+            "certificate_hash": "70c2d68a94e3e5355a30d182b32cf300b1ce94d4"
+          }
+        },
+        {
+          "client_id": "403301118849-5b15suqv5bhj8jvvothdofi1assk09fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCbwU2J_67MK1Y9H5PhTaJukhK0gaJx1Uo"
@@ -39,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403301118849-5b15suqv5bhj8jvvothdofi1assk09fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
