@@ -37,6 +37,7 @@ logic:
 - [ ] Real accounts
 
 UI:
+- [ ] Login Screen
 - [ ] Splash Screen
 - [ ] user profile card
 - [ ] treasure info card

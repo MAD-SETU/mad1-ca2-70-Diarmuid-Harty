@@ -19,16 +19,16 @@ import org.wit.treasuremap.main.MainApp
 import androidx.core.view.isVisible
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import org.wit.treasuremap.models.TreasureModel
 import org.wit.treasuremap.util.LocationHelper
 import org.wit.treasuremap.util.TreasureHelper
-import org.wit.treasuremap.util.renderProfileData
+//import org.wit.treasuremap.util.renderProfileData
 import org.wit.treasuremap.util.updateLightBar
 import org.wit.treasuremap.util.toggleMenu
 import org.wit.treasuremap.util.resetAddCard
 import org.wit.treasuremap.util.toggle
 
-// TODO: finish add treasure, ui background coverage, list treasures, edit account name, delete account, proximity to treasure, video
 class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityTreasuremapBinding
     private lateinit var app: MainApp
@@ -94,7 +94,7 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
                 locationHelper.getUserLocation { coords ->
                     val treasure = TreasureModel(
                         treasureName = name,
-                        creatorId = app.currentUser?.id ?: "", // elvis operator used as currentUser is nullable
+                        creatorId = FirebaseAuth.getInstance().currentUser?.uid ?: "", // elvis operator used as currentUser is nullable
                         description = treasureDescriptionField.text.toString(),
                         lat = coords.latitude,
                         lng = coords.longitude
@@ -114,8 +114,11 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
     // USER PROFILE
     //AI refactored
     private fun startProfileCard() {
+
+        val user = FirebaseAuth.getInstance().currentUser
+
         // get card data using helper
-        renderProfileData(binding.profileLayout, app.currentUser)
+        //renderProfileData(binding.profileLayout, user)
 
         binding.profileLayout.root.isVisible = false
 
@@ -125,7 +128,10 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun checkLoggedIn() {
-        if (app.currentUser == null) {
+
+        val user = FirebaseAuth.getInstance().currentUser
+
+        if (user == null) { // if no user, run login
             startActivity(Intent(this, LoginActivity::class.java))
             finish() // Prevents going back to map screen on back press
             return // Prevents further execution if user is not logged in

@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
-            android:text="Treasure Map"
+            android:text="@string/app_name"
             android:textColor="@color/color_accent"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -62,15 +62,6 @@
             android:textAllCaps="false"
             android:textColor="@color/color_dark"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnAddUser"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/button_addUser"
-            android:textAllCaps="false"
-            android:textColor="@color/text_secondary" />
 
     </LinearLayout>
 

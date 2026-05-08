@@ -59,13 +59,11 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation(libs.androidx.coordinatorlayout)
 
-    // persistence
-    implementation("com.google.code.gson:gson:2.10.1")
-
     // persistence/firebase
     implementation(platform("com.google.firebase:firebase-bom:34.12.0"))
     implementation("com.google.firebase:firebase-database") // realtimeDB
     implementation("com.google.firebase:firebase-auth") // userAuth
+    implementation("com.google.android.gms:play-services-auth:21.1.1") // play services auth (for login with google)
     implementation("com.google.firebase:firebase-analytics")
 
 

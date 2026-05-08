@@ -22,6 +22,7 @@ class TreasureFireStore: TreasureStore {
     override fun findAll(): List<TreasureModel> = treasures
 
     override fun findById(id: String): TreasureModel? {
+        // todo: add listener for data changed in db
         return treasures.find { it.id == id }
     }
 
