@@ -1,33 +1,30 @@
 package org.wit.treasuremap.activities
 
-import android.Manifest
+//import org.wit.treasuremap.util.renderProfileData
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.location.LocationManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import org.wit.treasuremap.R
-import org.wit.treasuremap.databinding.ActivityTreasuremapBinding
-import org.wit.treasuremap.main.MainApp
-import androidx.core.view.isVisible
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import org.wit.treasuremap.R
+import org.wit.treasuremap.databinding.ActivityTreasuremapBinding
+import org.wit.treasuremap.main.MainApp
 import org.wit.treasuremap.models.TreasureModel
+import org.wit.treasuremap.models.persistence.TreasureFireStore
 import org.wit.treasuremap.util.LocationHelper
 import org.wit.treasuremap.util.TreasureHelper
-//import org.wit.treasuremap.util.renderProfileData
-import org.wit.treasuremap.util.updateLightBar
-import org.wit.treasuremap.util.toggleMenu
 import org.wit.treasuremap.util.resetAddCard
 import org.wit.treasuremap.util.toggle
+import org.wit.treasuremap.util.toggleMenu
+import org.wit.treasuremap.util.updateLightBar
+import timber.log.Timber.i
 
 class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityTreasuremapBinding
@@ -52,6 +49,19 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
         // Initialize Helper and start the proximity loop
         locationHelper = LocationHelper(this)
         locationHelper.startTracking { latLng -> updateProximityUI(latLng) }
+
+        // This makes the ui update on data change
+        // AI generated
+        (app.treasures as TreasureFireStore).onDataChanged = {
+            i("Firebase data changed, refreshing map...")
+            runOnUiThread { // only thread that can touch ui on android
+                if (::mMap.isInitialized) {
+                    // call the rendering logic when data arrives
+                    TreasureHelper().renderTreasures(mMap, app.treasures.findAll())
+                }
+            }
+        }
+
     }
 
     // USER INTERFACE
@@ -86,6 +96,10 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
 
             btnAddTreasure.setOnClickListener {
                 val name = treasureNameField.text.toString()
+
+                val latOffset = (Math.random() - 0.5) * 0.001
+                val lngOffset = (Math.random() - 0.5) * 0.001
+
                 if (name.isEmpty()) {
                     Snackbar.make(binding.root, "Enter a name", Snackbar.LENGTH_LONG).show()
                     return@setOnClickListener
@@ -97,12 +111,11 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
                         creatorId = FirebaseAuth.getInstance().currentUser?.uid ?: "", // elvis operator used as currentUser is nullable
                         description = treasureDescriptionField.text.toString(),
                         lat = coords.latitude,
-                        lng = coords.longitude
+                        lng = coords.longitude,
+                        searchLat = coords.latitude + latOffset,
+                        searchLng = coords.longitude + lngOffset
                     )
-                    app.treasures.create(treasure.copy())
-
-                    // Update Map using Helper
-                    TreasureHelper().renderTreasures(mMap, app.treasures.findAll())
+                    app.treasures.create(treasure)
 
                     binding.resetAddCard()
                     Snackbar.make(binding.root, "Treasure Buried!", Snackbar.LENGTH_SHORT).show()
@@ -117,8 +130,7 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val user = FirebaseAuth.getInstance().currentUser
 
-        // get card data using helper
-        //renderProfileData(binding.profileLayout, user)
+        // todo: get card data
 
         binding.profileLayout.root.isVisible = false
 

@@ -1,34 +1,21 @@
 package org.wit.treasuremap.models
 
-import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 
-// Pasted my old model into ai and asked it how to adapt it to work with firebase and it produced this.
-// its the same datapoints but it changed my id var, added the @ignore and @exclude
+// Pasted my old model into AI and asked it how to adapt it to work with firebase, and it produced this.
+// it's the same data points, but it changed my id var, added the @ignore and @exclude
+// have since found it in the documentation
+// got rid of mapping as it's apparently not necessary
 
 @IgnoreExtraProperties // Tells Firebase to ignore any data it doesn't recognize
 data class TreasureModel(
     var id: String = "", // Changed to var and default empty for Firebase keys
-    var creatorId: String = "",
-    var treasureName: String = "",
-    var description: String = "",
-    var isFound: Boolean = false,
-    var lat: Double = 0.0,
-    var lng: Double = 0.0,
-    var creatorEmail: String = "" // Useful for displaying "Hidden by: user@gmail.com"
-) {
-    // This allows Firebase to map the data even if the constructor is empty
-    @Exclude
-    fun toMap(): Map<String, Any?> {
-        return mapOf(
-            "id" to id,
-            "creatorId" to creatorId,
-            "treasureName" to treasureName,
-            "description" to description,
-            "isFound" to isFound,
-            "lat" to lat,
-            "lng" to lng,
-            "creatorEmail" to creatorEmail
-        )
-    }
-}
+    var creatorId: String = "", // unique id of the user who created the treasure
+    var treasureName: String = "", // Treasures name
+    var description: String = "", // treasure description
+    var found: Boolean = false,
+    var lat: Double = 0.0, // treasure latitude
+    var lng: Double = 0.0, // treasure longitude
+    var searchLat: Double = 0.0, // offset latitude for search radius
+    var searchLng: Double = 0.0 // offset longitude for search radius
+)

@@ -14,7 +14,6 @@ class LocationHelper(private val activity: Activity) {
 
     // LOCATION HELPERS
     // almost entirely AI generated code below, particularly after refactoring
-    // unfortunate but necessary due to time and this being much harder than I expected
 
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
     private var locationCallback: LocationCallback? = null
@@ -65,6 +64,7 @@ class LocationHelper(private val activity: Activity) {
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
     }
 
+    // AI generated code
     fun startTracking(onLocationReceived: (LatLng) -> Unit) {
         val locationRequest = LocationRequest.create().apply {
             interval = 2000
@@ -84,6 +84,7 @@ class LocationHelper(private val activity: Activity) {
         }
     }
 
+    // AI generated code
     fun stopTracking() {
         locationCallback?.let { fusedLocationClient.removeLocationUpdates(it) }
     }

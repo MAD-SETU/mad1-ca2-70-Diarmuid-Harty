@@ -19,7 +19,6 @@
 ### TODO
 
 treasure:
-- [ ] Individual Treasures can be updated/deleted/filtered
 - [ ] Update treasure
 - [ ] delete treasure all
 - [ ] delete treasure by id
@@ -27,14 +26,13 @@ treasure:
 - [ ] find treasure "created by userID"
 
 user:
-- [ ] update user
 - [ ] delete user
 - [ ] avatar / profile picture
 
 logic:
 - [ ] detection for treasure found
 - [ ] smooth gps positioning
-- [ ] Real accounts
+- [x] Real accounts
 
 UI:
 - [ ] Login Screen
