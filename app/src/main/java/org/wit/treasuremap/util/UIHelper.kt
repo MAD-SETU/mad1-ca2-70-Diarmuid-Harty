@@ -69,13 +69,13 @@ fun List<View>.updateLightBar(distance: Float) {
     }
 
 
-    fun renderProfileData(binding: UserProfileCardBinding, user: UserModel?) {
-        user?.let {
-            binding.profileUsername.text = it.username
-            // Show first 8 characters of the UUID to keep the UI clean
-            binding.profileId.text = "User ID: ${it.id.take(8).uppercase()}"
-            binding.txtFoundCount.text = it.treasureFound.toString()
-            binding.txtCreatedCount.text = it.treasureCreated.toString()
-        }
-}
+//    fun renderProfileData(binding: UserProfileCardBinding, user: UserModel?) {
+//        user?.let {
+//            binding.profileUsername.text = it.username
+//            // Show first 8 characters of the UUID to keep the UI clean
+//            binding.profileId.text = "User ID: ${it.id.take(8).uppercase()}"
+//            binding.txtFoundCount.text = it.treasureFound.toString()
+//            binding.txtCreatedCount.text = it.treasureCreated.toString()
+//        }
+//}
 

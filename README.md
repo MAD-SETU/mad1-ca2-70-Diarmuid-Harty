@@ -19,7 +19,6 @@
 ### TODO
 
 treasure:
-- [ ] Individual Treasures can be updated/deleted/filtered
 - [ ] Update treasure
 - [ ] delete treasure all
 - [ ] delete treasure by id
@@ -33,9 +32,10 @@ user:
 logic:
 - [ ] detection for treasure found
 - [ ] smooth gps positioning
-- [ ] Real accounts
+- [x] Real accounts
 
 UI:
+- [ ] Login Screen
 - [ ] Splash Screen
 - [ ] user profile card
 - [ ] treasure info card

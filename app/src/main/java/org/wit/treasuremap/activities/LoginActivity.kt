@@ -2,95 +2,94 @@ package org.wit.treasuremap.activities
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
-import timber.log.Timber.i
-import org.wit.treasuremap.main.MainApp
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import org.wit.treasuremap.R
 import org.wit.treasuremap.databinding.ActivityLoginBinding
-import org.wit.treasuremap.util.getUser
+import org.wit.treasuremap.main.MainApp
 import org.wit.treasuremap.util.hideKeyboard
 import org.wit.treasuremap.util.showSnackbar
+import timber.log.Timber.i
 
-//todo: add real user check and security and stuff later
 class LoginActivity : AppCompatActivity() {
-    lateinit var app: MainApp
+
     private lateinit var binding: ActivityLoginBinding
+    lateinit var app: MainApp
+
+    // firebase and google auth vars
+    private lateinit var auth: FirebaseAuth
+    private lateinit var  googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         app = application as MainApp
+
+        // Init firebase auth
+        auth = FirebaseAuth.getInstance()
+
+        // configure google sign in using web client id from strings.xml
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         i("Login Activity Started")
 
         // // --- LOGIN BUTTON ---
         binding.btnLogin.setOnClickListener {
-
             hideKeyboard()
-
             // take name as val first for validation
-            val input = binding.usernameField.text.toString().trim()
-
-            // if is empty, tell and stop
-            if (input.isEmpty()) {
-                showSnackbar("Enter a username")
-                return@setOnClickListener
-            }
-
-            // if name not empty and exists
-            else {
-                val user = getUser(input, app.users) // assign temp user for further validation
-
-                // if user isn't null it is valid
-                // (as I don't check for anything other than a correct name yet)
-                if (user != null) {
-                    app.currentUser = user // assign the user to active user in MainApp.kt
-                    viewMap() // done here, switch to next view
-                }
-
-                // if name isn't found in users array
-                // tell user to click add account button if they want a new account with this username
-                if (user == null) {
-                    showSnackbar("Username not linked to an existing account,\n" +
-                            " Click Create Account to create account as $input")
-                }
-            }
+            val signInIntent = googleSignInClient.signInIntent
+            intentLauncher.launch(signInIntent)
         }
+    }
 
-        // --- CREATE USER BUTTON ---
-        binding.btnAddUser.setOnClickListener {
+    // Fully AI Code
+    // Result Launcher: Catches the result when the user finishes picking an account
+    private val intentLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)!!
+            i("Google sign in successful: ${account.email}")
+            // Now exchange this Google account for a Firebase User
+            firebaseAuthWithGoogle(account.idToken!!)
+        } catch (e: ApiException) {
+            i("Google sign in failed: Error Code ${e.statusCode}")
+            showSnackbar("Google Sign In Failed")
+        }
+    }
 
-            hideKeyboard()
+    // Fully AI Code
+    // Firebase Handshake: Creates the actual session
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    i("Firebase login successful for UID: ${user?.uid}")
 
-            // take input
-            val input = binding.usernameField.text.toString().trim()
-
-            // if is empty, tell and stop
-            if (input.isEmpty()) {
-                showSnackbar("Enter a username")
-                return@setOnClickListener
-            } else {
-                val user = getUser(input, app.users) // assign temp user for further validation
-
-                // if user isn't null it exists in array and cannot be assigned as new username
-                if (user != null) {
-                    showSnackbar("Username: ${input}, is already registered,\n" +
-                            " enter a unique username for account creation")
+                    // Proceed to the main map
+                    viewMap()
                 } else {
-                    // username hasn't been used so is valid, store it here
-                    val newUser = UserModel(username = input)
-
-                    // add new user object to array in MainApp,kt
-                    app.users.create(newUser.copy())
-                    i("New User Created: ${newUser.username} with ID ${newUser.id}")
-
-                    // assign active user in mainApp
-                    app.currentUser = newUser
-                    viewMap() // done here, switch to next view
+                    i("Firebase authentication failed")
+                    showSnackbar("Authentication Failed")
                 }
             }
-        }
     }
 
     // had AI help with this but have since found it in class material
@@ -99,5 +98,4 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish() // Prevents going back to log in screen on back press
     }
-
 }
