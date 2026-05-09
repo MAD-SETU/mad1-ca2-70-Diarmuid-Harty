@@ -23,7 +23,7 @@ import org.wit.treasuremap.util.TreasureHelper
 import org.wit.treasuremap.util.resetAddCard
 import org.wit.treasuremap.util.toggle
 import org.wit.treasuremap.util.toggleMenu
-import org.wit.treasuremap.util.updateLightBar
+//import org.wit.treasuremap.util.updateLightBar
 import timber.log.Timber.i
 
 class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -64,8 +64,8 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    // USER INTERFACE
-    // had AI walk me through this at the start (startNav)
+    // USER INTERFACE ELEMENTS
+
 
     // NAVIGATION UI
     private fun startNavMenu() {
@@ -139,6 +139,26 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+
+
+    // FUNCTIONS
+
+    // delete all the tresure made by the user
+    private fun deleteAllUserTreasure() {
+        // get user
+        val userId = getUserId()
+        // define a list of the treasures under the above user id
+        val userTreasures = app.treasures.findByUserId(userId)
+
+        userTreasures.forEach { treasure ->
+            app.treasures.delete(treasure)}
+    }
+
+    // get current users id
+    private fun getUserId(): String? {
+        return FirebaseAuth.getInstance().currentUser?.uid
+    }
+
     private fun checkLoggedIn() {
 
         val user = FirebaseAuth.getInstance().currentUser
@@ -149,8 +169,6 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
             return // Prevents further execution if user is not logged in
         }
     }
-
-
 
     // AI generated
     private fun setupMapFragment() {
@@ -191,12 +209,12 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
         val treasures = app.treasures.findAll()
         val distance = TreasureHelper().getDistanceToClosest(userLocation, treasures)
 
-        val lights: List<android.view.View> = listOf(
-            binding.proxBarLayout.light1, binding.proxBarLayout.light2,
-            binding.proxBarLayout.light3, binding.proxBarLayout.light4,
-            binding.proxBarLayout.light5, binding.proxBarLayout.light6
-        )
-        lights.updateLightBar(distance)
+        //val lights: List<android.view.View> = listOf(
+        //    binding.proxBarLayout.light1, binding.proxBarLayout.light2,
+        //    binding.proxBarLayout.light3, binding.proxBarLayout.light4,
+        //    binding.proxBarLayout.light5, binding.proxBarLayout.light6
+        //)
+        //lights.updateLightBar(distance)
     }
 
     // AI generated, stops tracking on close

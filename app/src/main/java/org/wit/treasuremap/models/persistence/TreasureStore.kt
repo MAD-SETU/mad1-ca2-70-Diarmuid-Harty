@@ -8,7 +8,10 @@ interface TreasureStore {
     fun update(treasure: TreasureModel)
 
     fun delete(treasure: TreasureModel)
+
     fun findAll(): List<TreasureModel>
 
     fun findById(id: String): TreasureModel?
+
+    fun findByUserId(id: String?): List<TreasureModel>
 }

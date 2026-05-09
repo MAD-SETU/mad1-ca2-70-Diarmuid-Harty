@@ -30,27 +30,27 @@ fun View.toggle() {
     this.visibility = if (this.visibility == View.VISIBLE) View.GONE else View.VISIBLE
 }
 
-fun List<View>.updateLightBar(distance: Float) {
-    val lightsToLight = when {
-        distance < 5 -> 6   // < 5m  = 6 lights
-        distance < 20 -> 5  // < 20m  = 5 lights
-        distance < 40 -> 4  // < 50m  = 4 lights
-        distance < 60 -> 3  // < 100m = 3 lights
-        distance < 80 -> 2  // < 150m = 2 lights
-        distance < 100 -> 1 // < 200m = 1 light
-        else -> 0           // > 100m = 0 lights
-    }
+//fun List<View>.updateLightBar(distance: Float) {
+//    val lightsToLight = when {
+//        distance < 5 -> 6   // < 5m  = 6 lights
+//        distance < 20 -> 5  // < 20m  = 5 lights
+//        distance < 40 -> 4  // < 50m  = 4 lights
+//        distance < 60 -> 3  // < 100m = 3 lights
+//        distance < 80 -> 2  // < 150m = 2 lights
+//        distance < 100 -> 1 // < 200m = 1 light
+//        else -> 0           // > 100m = 0 lights
+//    }
 
-    this.forEachIndexed { index, view ->
-        if (index < lightsToLight) {
-            view.setBackgroundColor(Color.parseColor("#08D9D6")) // cyan for lit
-            view.alpha = 1.0f
-        } else {
-            view.setBackgroundColor(Color.DKGRAY)
-            view.alpha = 0.3f
-        }
-    }
-}
+//    this.forEachIndexed { index, view ->
+//        if (index < lightsToLight) {
+//            view.setBackgroundColor(Color.parseColor("#08D9D6")) // cyan for lit
+//            view.alpha = 1.0f
+//        } else {
+//            view.setBackgroundColor(Color.DKGRAY)
+//            view.alpha = 0.3f
+//        }
+//    }
+//}
 
     // Handle the Nav Menu Toggle icon and visibility
     fun ActivityTreasuremapBinding.toggleMenu() {

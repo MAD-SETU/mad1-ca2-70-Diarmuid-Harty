@@ -79,4 +79,8 @@ class TreasureFireStore: TreasureStore {
         return treasures.find { it.id == id }
     }
 
+    override fun findByUserId(id: String?): List<TreasureModel> {
+        return treasures.filter { it.creatorId == id }
+    }
+
 }
