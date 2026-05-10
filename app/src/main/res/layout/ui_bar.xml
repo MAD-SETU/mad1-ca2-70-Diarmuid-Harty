@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/controlContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/menuContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/expandableMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:contentDescription="@string/profile"
+                    app:backgroundTint="@color/color_semi_dark"
+                    app:fabSize="mini"
+                    app:srcCompat="@android:drawable/ic_menu_report_image"
+                    app:tint="@color/color_accent" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnToggleAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:contentDescription="@string/add_treasure"
+                    app:backgroundTint="@color/color_semi_dark"
+                    app:fabSize="mini"
+                    app:srcCompat="@android:drawable/ic_input_add"
+                    app:tint="@color/color_accent" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnListView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:contentDescription="@string/view_list"
+                    app:backgroundTint="@color/color_semi_dark"
+                    app:fabSize="mini"
+                    app:srcCompat="@android:drawable/ic_menu_sort_by_size"
+                    app:tint="@color/color_accent" />
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnMenuToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/togglemenu"
+                app:backgroundTint="@color/color_accent"
+                app:fabSize="normal"
+                app:srcCompat="@android:drawable/ic_menu_add"
+                app:tint="@color/color_dark" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

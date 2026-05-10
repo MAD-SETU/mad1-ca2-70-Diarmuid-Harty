@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Treasure Map</string>
+
+    <string name="hint_enterUsername">Enter Username</string>
+    <string name="hint_enterTreasureName">Treasure Name</string>
+    <string name="hint_enterTreasureDescription">Treasure Description</string>
+
+    <string name="button_login">Log in with Google</string>
+
+    <string name="button_addTreasure">Create Treasure</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="add_treasure">Add Treasure</string>
+    <string name="profile">Profile View</string>
+    <string name="togglemenu">Toggle Menu</string>
+
+    // my id from the googleservice json
+    <string name="default_web_client_id">403301118849-5b15suqv5bhj8jvvothdofi1assk09fh.apps.googleusercontent.com</string>
+    <string name="view_list">View List</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+</resources>
