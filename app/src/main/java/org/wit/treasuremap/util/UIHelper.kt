@@ -14,56 +14,54 @@ import org.wit.treasuremap.databinding.UserProfileCardBinding
 // almost entirely AI generated code below, particularly after refactoring
 // unfortunate but necessary due to time and this being much harder than I expected
 
+/**
+ * Extension function for Activity to dismiss the software keyboard.
+ */
 fun Activity.hideKeyboard() {
     val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    // Find the currently focused view, or create a dummy one if none exists
     val view = currentFocus ?: View(this)
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
 // quick Snackbar
+/**
+ * Extension function to display a short Snackbar message on the screen.
+ */
 fun Activity.showSnackbar(message: String) {
+    // Finds the root content view of the activity to attach the snackbar
     Snackbar.make(this.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
 }
 
 // toggle Visibility
+/**
+ * Toggles a View between VISIBLE and GONE.
+ */
 fun View.toggle() {
     this.visibility = if (this.visibility == View.VISIBLE) View.GONE else View.VISIBLE
 }
 
-//fun List<View>.updateLightBar(distance: Float) {
-//    val lightsToLight = when {
-//        distance < 5 -> 6   // < 5m  = 6 lights
-//        distance < 20 -> 5  // < 20m  = 5 lights
-//        distance < 40 -> 4  // < 50m  = 4 lights
-//        distance < 60 -> 3  // < 100m = 3 lights
-//        distance < 80 -> 2  // < 150m = 2 lights
-//        distance < 100 -> 1 // < 200m = 1 light
-//        else -> 0           // > 100m = 0 lights
-//    }
-
-//    this.forEachIndexed { index, view ->
-//        if (index < lightsToLight) {
-//            view.setBackgroundColor(Color.parseColor("#08D9D6")) // cyan for lit
-//            view.alpha = 1.0f
-//        } else {
-//            view.setBackgroundColor(Color.DKGRAY)
-//            view.alpha = 0.3f
-//        }
-//    }
-//}
-
-    // Handle the Nav Menu Toggle icon and visibility
+    /**
+     * Toggles the visibility of the expandable menu and updates the toggle button icon.
+     */
     fun ActivityTreasuremapBinding.toggleMenu() {
+        // Toggle visibility of the menu layout
         controlLayout.expandableMenu.isVisible = !controlLayout.expandableMenu.isVisible
+        // Switch the icon between 'close' (X) and 'add' (+) based on state
         val icon = if (controlLayout.expandableMenu.isVisible)
             android.R.drawable.ic_menu_close_clear_cancel else android.R.drawable.ic_menu_add
         controlLayout.btnMenuToggle.setImageResource(icon)
     }
 
     // Reset the Add Treasure UI back to normal
+    /**
+     * Resets the 'Add Treasure' input form and switches back to the main controls.
+     */
     fun ActivityTreasuremapBinding.resetAddCard() {
+        // Hide the input form and show the primary controls
         addTreasureLayout.root.isVisible = false
         controlLayout.root.isVisible = true
+        // Clear text fields for the next entry
         addTreasureLayout.treasureNameField.text.clear()
         addTreasureLayout.treasureDescriptionField.text.clear()
     }

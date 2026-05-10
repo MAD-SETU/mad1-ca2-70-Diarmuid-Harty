@@ -9,16 +9,21 @@ import com.google.firebase.database.IgnoreExtraProperties
 // have since found it in the documentation
 // got rid of mapping as it's apparently not necessary
 
-@IgnoreExtraProperties // Tells Firebase to ignore any data it doesn't recognize
-@Parcelize
+/**
+ * Data class representing a Treasure entry in the system.
+ * Annotated with @IgnoreExtraProperties for Firebase Realtime Database compatibility,
+ * and @Parcelize for easy passing between Android Activities.
+ */
+@IgnoreExtraProperties // Tells Firebase to ignore any data it doesn't recognize when mapping to this class
+@Parcelize // Enables the Parcelable implementation automatically via Kotlin Parcelize plugin
 data class TreasureModel(
-    var id: String = "", // Changed to var and default empty for Firebase keys
-    var creatorId: String = "", // unique id of the user who created the treasure
-    var treasureName: String = "", // Treasures name
-    var description: String = "", // treasure description
-    var found: Boolean = false,
-    var lat: Double = 0.0, // treasure latitude
-    var lng: Double = 0.0, // treasure longitude
-    var searchLat: Double = 0.0, // offset latitude for search radius
-    var searchLng: Double = 0.0 // offset longitude for search radius
-) : Parcelable
+    var id: String = "", // Unique Firebase push key identifier
+    var creatorId: String = "", // The UID of the user who "buried" this treasure
+    var treasureName: String = "", // Name or title of the treasure
+    var description: String = "", // Hints or details about the treasure
+    var found: Boolean = false, // Status flag to check if someone has discovered it
+    var lat: Double = 0.0, // Exact latitude coordinate
+    var lng: Double = 0.0, // Exact longitude coordinate
+    var searchLat: Double = 0.0, // Obfuscated latitude used as the center of the search circle
+    var searchLng: Double = 0.0 // Obfuscated longitude used as the center of the search circle
+) : Parcelable // Inherits from Parcelable to support serialization for Intents
