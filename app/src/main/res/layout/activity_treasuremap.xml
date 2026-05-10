@@ -14,10 +14,6 @@
         android:layout_height="match_parent" />
 
     <include
-        android:id="@+id/proxBarLayout"
-        layout="@layout/proximity_bar" />
-
-    <include
         android:id="@+id/profileLayout"
         layout="@layout/user_profile_card"
         android:layout_width="wrap_content"

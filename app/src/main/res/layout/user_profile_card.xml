@@ -114,6 +114,7 @@
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

@@ -16,25 +16,19 @@ import androidx.core.graphics.toColorInt
 class TreasureHelper {
 
     // TREASURE HELPERS
-    // almost entirely AI generated code below, particularly after refactoring
-    // unfortunate but necessary due to time and this being much harder than I expected
+    // Lots of AI generated code below, particularly after refactoring
+
 
     // AI generated function to find the distance to the nearest target
-    fun getDistanceToClosest(userLocation: LatLng, treasures: List<TreasureModel>): Float {
-        if (treasures.isEmpty()) return Float.MAX_VALUE
-
-        var minDistance = Float.MAX_VALUE
+    // i tried to change this myself but the fact distanceBetween returns an array confused me
+    fun getDistance(userLocation: LatLng, treasure: TreasureModel): Int {
         val results = FloatArray(1)
-
-        treasures.forEach { treasure ->
-            Location.distanceBetween(
-                userLocation.latitude, userLocation.longitude,
-                treasure.lat, treasure.lng,
-                results
-            )
-            if (results[0] < minDistance) minDistance = results[0]
-        }
-        return minDistance
+        Location.distanceBetween(
+            userLocation.latitude, userLocation.longitude,
+            treasure.lat, treasure.lng,
+            results
+        )
+        return results[0].toInt()
     }
 
     // mostly AI generated

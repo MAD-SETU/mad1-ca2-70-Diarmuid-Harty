@@ -48,7 +48,7 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Initialize Helper and start the proximity loop
         locationHelper = LocationHelper(this)
-        locationHelper.startTracking { latLng -> updateProximityUI(latLng) }
+        //locationHelper.startTracking { latLng -> updateProximityUI(latLng) }
 
         // This makes the ui update on data change
         // AI generated
@@ -143,7 +143,7 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     // FUNCTIONS
 
-    // delete all the tresure made by the user
+    // delete all the treasure made by the user
     private fun deleteAllUserTreasure() {
         // get user
         val userId = getUserId()
@@ -205,9 +205,9 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     /// AI generated & Refactored to use TreasureHelper
-    private fun updateProximityUI(userLocation: LatLng) {
-        val treasures = app.treasures.findAll()
-        val distance = TreasureHelper().getDistanceToClosest(userLocation, treasures)
+    //private fun updateProximityUI(userLocation: LatLng) {
+        //val treasures = app.treasures.findAll()
+        //val distance = TreasureHelper().getDistanceToClosest(userLocation, treasures)
 
         //val lights: List<android.view.View> = listOf(
         //    binding.proxBarLayout.light1, binding.proxBarLayout.light2,
@@ -215,12 +215,11 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
         //    binding.proxBarLayout.light5, binding.proxBarLayout.light6
         //)
         //lights.updateLightBar(distance)
-    }
+    //}
 
     // AI generated, stops tracking on close
     override fun onDestroy() {
         super.onDestroy()
         locationHelper.stopTracking() // Stops the GPS when the app closes
     }
-
 }

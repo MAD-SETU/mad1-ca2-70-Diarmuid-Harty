@@ -33,18 +33,6 @@
             android:textSize="28sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/usernameField"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginBottom="24dp"
-            android:background="@android:color/transparent"
-            android:hint="@string/hint_enterUsername"
-            android:inputType="text"
-            android:padding="12dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary" />
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
