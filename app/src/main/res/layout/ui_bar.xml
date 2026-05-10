@@ -52,6 +52,18 @@
                     app:fabSize="mini"
                     app:srcCompat="@android:drawable/ic_input_add"
                     app:tint="@color/color_accent" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnListView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:contentDescription="@string/view_list"
+                    app:backgroundTint="@color/color_semi_dark"
+                    app:fabSize="mini"
+                    app:srcCompat="@android:drawable/ic_menu_sort_by_size"
+                    app:tint="@color/color_accent" />
+
             </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -64,6 +76,7 @@
                 app:fabSize="normal"
                 app:srcCompat="@android:drawable/ic_menu_add"
                 app:tint="@color/color_dark" />
+
         </LinearLayout>
 
     </LinearLayout>

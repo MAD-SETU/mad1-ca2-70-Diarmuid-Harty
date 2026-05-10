@@ -38,4 +38,4 @@ UI:
 - [ ] Login Screen
 - [ ] Splash Screen
 - [ ] user profile card
-- [ ] treasure info card
+- [x] treasure info card

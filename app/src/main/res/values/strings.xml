@@ -15,4 +15,5 @@
 
     // my id from the googleservice json
     <string name="default_web_client_id">403301118849-5b15suqv5bhj8jvvothdofi1assk09fh.apps.googleusercontent.com</string>
+    <string name="view_list">View List</string>
 </resources>

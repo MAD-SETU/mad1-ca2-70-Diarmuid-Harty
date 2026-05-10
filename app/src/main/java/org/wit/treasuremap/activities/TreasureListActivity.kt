@@ -1,5 +1,6 @@
 package org.wit.treasuremap.activities
 
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,11 +16,13 @@ import org.wit.treasuremap.models.TreasureModel
 import org.wit.treasuremap.models.persistence.TreasureFireStore
 import org.wit.treasuremap.util.LocationHelper
 import org.wit.treasuremap.util.TreasureHelper
-import android.location.Location
+import timber.log.Timber.i
 
-class TreasureListActivity : AppCompatActivity() {
+class TreasureListActivity : AppCompatActivity(),
+    TreasureAdapter.TreasureListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityTreasureListBinding
+
     // location stuff for distance to treasure calc
     private lateinit var locationHelper: LocationHelper
 
@@ -83,10 +86,15 @@ class TreasureListActivity : AppCompatActivity() {
 
         }
 
-        // 3. Update the UI
-        binding.recyclerView.adapter = TreasureAdapter(filteredList, lastLocation)
+        // This is half AI generated and half practical exercise code
+        binding.recyclerView.adapter = TreasureAdapter(filteredList, lastLocation, this)    }
+
+    override fun onTreasureClick(treasure: TreasureModel) {
+        i("Clicked on: ${treasure.treasureName}")
+        // Logic to open edit screen goes here
     }
 }
+
 class TreasureAdapter(
     // treasures list
     private var treasures: List<TreasureModel>,
@@ -110,18 +118,19 @@ class TreasureAdapter(
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         //val treasure = treasures[holder.adapterPosition]
         val treasure = treasures[holder.bindingAdapterPosition] // asked AI if the deprecation above is an issue, and it said no but this will fix the warning
-        holder.bind(treasure, userLocation)
+        holder.bind(treasure, userLocation, listener)
     }
 
     override fun getItemCount(): Int = treasures.size
 
-    class MainHolder(private val binding: TreasureDetailsCardBinding) :
+    // 'inner' allows this class to access the 'listener' passed to the Adapter
+    inner class MainHolder(private val binding: TreasureDetailsCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
             // treasure helper instance for use below
             private val helper = TreasureHelper()
 
-        fun bind(treasure: TreasureModel, userLocation: LatLng?) {
+        fun bind(treasure: TreasureModel, userLocation: LatLng?, listener: TreasureListener) {
             binding.treasureName.text = treasure.treasureName
             binding.description.text = treasure.description
 
@@ -134,6 +143,8 @@ class TreasureAdapter(
                 binding.distance.text = "Locating..."
             }
 
+            // apply click listener for treasure item in menu
+            binding.root.setOnClickListener { listener.onTreasureClick(treasure) }
         }
     }
 }

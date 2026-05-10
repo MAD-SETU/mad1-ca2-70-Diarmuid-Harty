@@ -74,6 +74,13 @@ class TreasuremapActivity : AppCompatActivity(), OnMapReadyCallback {
                 binding.toggleMenu()
             }
 
+            // treasure list view
+            btnListView.setOnClickListener {
+                binding.toggleMenu() // Close menu before switching
+                val intent = Intent(this@TreasuremapActivity, TreasureListActivity::class.java)
+                startActivity(intent)
+            }
+
             btnToggleAdd.setOnClickListener {
                 if (locationHelper.isLocationEnabled()) {
                     binding.addTreasureLayout.root.toggle()
