@@ -1,5 +1,7 @@
 package org.wit.treasuremap.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import com.google.firebase.database.IgnoreExtraProperties
 
 // Pasted my old model into AI and asked it how to adapt it to work with firebase, and it produced this.
@@ -8,6 +10,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 // got rid of mapping as it's apparently not necessary
 
 @IgnoreExtraProperties // Tells Firebase to ignore any data it doesn't recognize
+@Parcelize
 data class TreasureModel(
     var id: String = "", // Changed to var and default empty for Firebase keys
     var creatorId: String = "", // unique id of the user who created the treasure
@@ -18,4 +21,4 @@ data class TreasureModel(
     var lng: Double = 0.0, // treasure longitude
     var searchLat: Double = 0.0, // offset latitude for search radius
     var searchLng: Double = 0.0 // offset longitude for search radius
-)
+) : Parcelable

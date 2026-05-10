@@ -25,7 +25,7 @@
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="#000000"
+            android:textColor="#08D9D6"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="A Title" />
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/treasureName"
             android:layout_marginTop="4dp"
-            android:textColor="#000000"
+            android:textColor="#08D9D6"
             android:textSize="16sp"
             tools:text="A Description" />
 
