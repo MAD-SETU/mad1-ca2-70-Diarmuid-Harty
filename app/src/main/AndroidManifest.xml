@@ -17,7 +17,15 @@
 
         <activity
             android:name=".activities.TreasureListActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -28,12 +36,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.TreasuremapActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

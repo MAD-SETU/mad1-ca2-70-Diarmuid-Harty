@@ -12,14 +12,20 @@ import org.wit.treasuremap.databinding.ActivityTreasureListBinding
 import org.wit.treasuremap.databinding.TreasureDetailsCardBinding
 import org.wit.treasuremap.main.MainApp
 import org.wit.treasuremap.models.TreasureModel
+import org.wit.treasuremap.models.persistence.TreasureFireStore
 import org.wit.treasuremap.util.LocationHelper
 import org.wit.treasuremap.util.TreasureHelper
+import android.location.Location
 
 class TreasureListActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var binding: ActivityTreasureListBinding
     // location stuff for distance to treasure calc
     private lateinit var locationHelper: LocationHelper
+
+    // variables for helping with ui update
+    private var lastLocation: LatLng? = null
+    private var currentFilter = "ALL"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,39 +39,66 @@ class TreasureListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        // Data passed through this - filterType allows for filtering before passing the data
-        updateList("ALL", null)
 
-        // getuser location and update list
+        // the data come in relatively slowly so i need to force a few updates at different conditions
+        // had AI generate this, i wouldnt have figure it out
+
+        // Firebase trigger
+        (app.treasures as TreasureFireStore).onDataChanged = {
+            runOnUiThread { refreshUI() }
+        }
+
+        // Location Helper trigger
         locationHelper.getUserLocation { location ->
-            updateList("ALL", location)
+            lastLocation = location
+            refreshUI() // This will update the "Locating..." labels
         }
     }
 
-    private fun updateList(filterType: String, location: LatLng?) {
+    private fun refreshUI() {
         val allTreasures = app.treasures.findAll()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // filters for displaying x type of treasure on list
-        val filteredList = when (filterType) {
-            "MINE" -> allTreasures.filter { it.creatorId == userId } // look for attached userid in list
-
-            "DISCOVERED" -> allTreasures.filter { it.found == true } // look for found true in list
-
-            else -> allTreasures.filter { it.found == false } // else show all undiscovered
+        // filtering logic
+        var filteredList = when (currentFilter) {
+            "MINE" -> allTreasures.filter { it.creatorId == userId }
+            "DISCOVERED" -> allTreasures.filter { it.found == true }
+            else -> allTreasures.filter { it.found == false }
         }
 
-        // Refresh the list, use the new data
-        binding.recyclerView.adapter = TreasureAdapter(filteredList, location) // AI generated code
+        // this is AI generated
+        // i asked it what is the simples way to sort by distance with the current setup
+        if (lastLocation != null) {
+            filteredList = filteredList.sortedBy { treasure ->
+                val treasureLoc = Location("").apply {
+                    latitude = treasure.lat
+                    longitude = treasure.lng
+                }
+                val userLoc = Location("").apply {
+                    latitude = lastLocation!!.latitude
+                    longitude = lastLocation!!.longitude
+                }
+                userLoc.distanceTo(treasureLoc) // This value determines the order
+            }
+
+        }
+
+        // 3. Update the UI
+        binding.recyclerView.adapter = TreasureAdapter(filteredList, lastLocation)
     }
 }
 class TreasureAdapter(
     // treasures list
     private var treasures: List<TreasureModel>,
     // user lat long
-    private val userLocation: LatLng? ) :
+    private val userLocation: LatLng?,
+    private val listener: TreasureListener ) : // interface for treasure crud
 
     RecyclerView.Adapter<TreasureAdapter.MainHolder>() {
+
+    interface TreasureListener {
+        fun onTreasureClick(treasure: TreasureModel)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = TreasureDetailsCardBinding
