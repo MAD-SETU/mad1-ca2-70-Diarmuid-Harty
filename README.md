@@ -20,7 +20,7 @@
 
 treasure:
 - [ ] Update treasure
-- [ ] delete treasure all
+- [x] delete treasure all
 - [ ] delete treasure by id
 - [x] link treasure and user
 - [ ] find treasure "created by userID"

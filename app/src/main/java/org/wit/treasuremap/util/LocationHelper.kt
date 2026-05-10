@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Looper
+import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
@@ -65,6 +66,7 @@ class LocationHelper(private val activity: Activity) {
     }
 
     // AI generated code
+    @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     fun startTracking(onLocationReceived: (LatLng) -> Unit) {
         val locationRequest = LocationRequest.create().apply {
             interval = 2000
